@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>User Info</title>
+		<script src="vue.js"></script>
+		<link rel="stylesheet" href="style.css" type="text/css" media="all">
+	</head>
+	<body>
+		<!-- grid root element -->
+		<div id="grid" class = "row clearfix">
+			<div v-for="user in users.data">
+				<div class="col6to2 image " >
+					<div class ="boxR5">
+						<div class="fig sepia zoom_in ">
+							<img :src="user.avatar" :alt="user.first_name" class="sepia zoom_in"/>
+						</div>
+						<div class = "u_info">{{user.first_name}} {{user.last_name}}</div>
+						<div class = "u_info">{{user.email}}</div>
+					</div>		
+				</div>	
+			</div>
+		</div>
+		<script>
+			var grid = new Vue({
+				el: "#grid",
+				data: {
+					users: []
+				},
+				created() {
+					fetch('get_json.php').then(response => {
+						response.json().then(res => { 
+							this.users = res
+							console.log(res)
+						})
+					}, error =>{ console.log(error)})  
+				}
+			});	  
+			</script>
+		</body>
+</html>
